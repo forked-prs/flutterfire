@@ -183,6 +183,17 @@ public class FirebaseAnalyticsPlugin implements MethodCallHandler, FlutterPlugin
         bundle.putDouble(key, (Double) value);
       } else if (value instanceof Boolean) {
         bundle.putBoolean(key, (Boolean) value);
+      } else if (value instanceof ArrayList) {
+        Bundle[] myBundleArray = new Bundle[((ArrayList) value).size()];
+        for (int i = 0; i < ((ArrayList) value).size(); i++)
+        {
+          Map<String, Object> test = ((Map<String, Object>) ((ArrayList) value).get(i));
+          myBundleArray[i] = createBundleFromMap(test);
+        }
+
+        bundle.putParcelableArray(key, myBundleArray);
+
+      
       } else {
         throw new IllegalArgumentException(
             "Unsupported value type: " + value.getClass().getCanonicalName());
