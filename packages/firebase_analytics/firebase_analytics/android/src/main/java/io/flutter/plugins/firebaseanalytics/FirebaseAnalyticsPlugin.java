@@ -20,6 +20,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 import java.util.Map;
+import java.util.ArrayList;
 
 /** Flutter plugin for Firebase Analytics. */
 public class FirebaseAnalyticsPlugin implements MethodCallHandler, FlutterPlugin, ActivityAware {
@@ -190,8 +191,12 @@ public class FirebaseAnalyticsPlugin implements MethodCallHandler, FlutterPlugin
           Map<String, Object> test = ((Map<String, Object>) ((ArrayList) value).get(i));
           myBundleArray[i] = createBundleFromMap(test);
         }
-
         bundle.putParcelableArray(key, myBundleArray);
+        // Parcelable[] aaa =bundle.getParcelableArray(key);
+        // for (int i = 0; i <  aaa.length; i++){
+
+        // Log.v("MyActivity3", aaa[i].toString());
+        // }
       } else {
         throw new IllegalArgumentException(
             "Unsupported value type: " + value.getClass().getCanonicalName());
