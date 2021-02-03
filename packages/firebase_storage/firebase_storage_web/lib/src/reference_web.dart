@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// @dart=2.9
+
 import 'dart:typed_data';
 import 'dart:html' as html;
 
@@ -128,7 +130,7 @@ class ReferenceWeb extends ReferencePlatform {
   Future<Uint8List /*?*/ > getData(
     int maxSize, {
     @visibleForTesting
-        Future<Uint8List> Function(dynamic url) readBytes = http.readBytes,
+        Future<Uint8List> Function(Uri url) readBytes = http.readBytes,
   }) async {
     if (maxSize > 0) {
       final metadata = await getMetadata();
@@ -139,7 +141,7 @@ class ReferenceWeb extends ReferencePlatform {
 
     try {
       String url = await getDownloadURL();
-      return await readBytes(url);
+      return await readBytes(Uri.parse(url));
     } catch (e) {
       throw getFirebaseException(e);
     }
